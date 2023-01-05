@@ -1,0 +1,12 @@
+# ninja log v5
+5	1711	6946357992080510	CMakeFiles/AED_Projeto_2.dir/main.cpp.obj	8f4c97e766e9e167
+31	1673	6946292962497079	CMakeFiles/AED_Projeto_2.dir/cpps/Airline.cpp.obj	6887d4d3bb495c45
+22	412	6946292949889222	CMakeFiles/AED_Projeto_2.dir/cpps/Airport.cpp.obj	5fc09deb1b952525
+40	137	6946292947126260	CMakeFiles/AED_Projeto_2.dir/cpps/Read.cpp.obj	379f879f7e3a4ee6
+2	200	6946359259965565	build.ninja	e5ca352762d4d177
+4	1874	6946355776171451	CMakeFiles/AED_Projeto_2.dir/cpps/Graph.cpp.obj	fc7139c8e24a5e42
+1712	2276	6946357997663315	AED_Projeto_2.exe	ab1400a0e4ce48ef
+17	469	6946331187323380	CMakeFiles/AED_Projeto_2.dir/cpps/Aeroporto.cpp.obj	e526ae29c2c9af6e
+23	2629	6946355783711790	CMakeFiles/AED_Projeto_2.dir/cpps/Ler.cpp.obj	44de94ce2bad35f1
+4	2108	6946331203784496	CMakeFiles/AED_Projeto_2.dir/cpps/Companhia.cpp.obj	10e8670936fb4ea3
+18	1961	6946343449564220	CMakeFiles/AED_Projeto_2.dir/cpps/Distancias.cpp.obj	bf03db65a729f518
