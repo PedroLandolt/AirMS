@@ -21,6 +21,14 @@ struct hashpair{
     }
 };
 
+struct hashpairstring{
+    size_t operator()(const pair<string, string> &p) const {
+        auto hash1 = hash<string>{}(p.first);
+        auto hash2 = hash<string>{}(p.second);
+        return hash1 ^ hash2;
+    }
+};
+
 class Ler {
 
     unordered_map<string, int> aeroportos_codigos;
@@ -35,6 +43,9 @@ class Ler {
     unordered_map<string, vector<int>> paises_aeroportos;
     unordered_map<string, vector<int>> companhias_aeroportos;
     unordered_map<string, unordered_set<string>> pais_cidades;
+
+    unordered_map<int, pair<string,string>> id_pais_cidade;
+    unordered_map<pair<string,string>, vector<int>, hashpairstring> pais_cidade_aeroportos;
 
 public:
 
@@ -54,6 +65,9 @@ public:
     unordered_map<string, vector<int>> getPaisesAeroportos() const;
     unordered_map<string, vector<int>> getCompanhiasAeroportos() const;
     unordered_map<string, unordered_set<string>> getPaisCidades() const;
+
+    unordered_map<int, pair<string,string>> getIdPaisCidade() const;
+    unordered_map<pair<string,string>, vector<int>, hashpairstring> getPaisCidadeAeroportos() const;
 
 };
 

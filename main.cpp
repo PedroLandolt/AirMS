@@ -23,12 +23,24 @@ void wait() {
     do{ c = getchar(); }while ((c != '\n') && (c != EOF));
 }
 
+// Checks
 bool checkInteiro(const string& s);
 bool checkAeroporto(const string& s);
 bool checkCidade(const string& s);
+bool checkPais(const string& s);
 
+// Other Menu Functions
+
+
+// Prints de Menu Informacao
 void print_info_aeroporto(int id, const Aeroporto& aeroporto, string aerop);
 void print_info_cidade(const string& cidade);
+void print_info_aeroporto_cidade(const string& cidade);
+void print_info_aeroporto_cidade_pais(const string& cidade, const string& pais);
+void print_info_pais(const string& pais);
+void print_info_aeroporto_pais(const string& pais, vector<int> aeroportos);
+
+
 
 int main(){
 
@@ -178,6 +190,21 @@ int main(){
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
                         case 3:
 
+                            cout << "Pais: ";
+                            getline(cin >> ws, pais);
+
+                            while(!checkPais(pais)){
+                                clearScreen();
+                                cout << endl;
+                                cout << "Pais invalido! Tente novamente: ";
+                                cin >> pais;
+                                cout << endl;
+                            }
+
+                            transform(pais.begin(), pais.end(), pais.begin(), ::toupper);
+
+                            print_info_pais(pais);
+
                             ch1 = 3;
                             break;
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
@@ -302,10 +329,36 @@ int main(){
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
                                     case 2:
 
+                                        cout << "Cidade: ";
+                                        cin >> cidade;
+
+                                        while(!checkCidade(cidade)){
+                                            clearScreen();
+                                            cout << endl;
+                                            cout << "Cidade invalida! Tente novamente: ";
+                                            cin >> cidade;
+                                            cout << endl;
+                                        }
+
+                                        transform(cidade.begin(), cidade.end(), cidade.begin(), ::toupper);
+
                                         ch2_1 = 2;
                                         break;
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
                                     case 3:
+
+                                        cout << "Pais: ";
+                                        cin >> pais;
+
+                                        while(!checkPais(pais)){
+                                            clearScreen();
+                                            cout << endl;
+                                            cout << "Pais invalido! Tente novamente: ";
+                                            cin >> pais;
+                                            cout << endl;
+                                        }
+
+                                        transform(pais.begin(), pais.end(), pais.begin(), ::toupper);
 
                                         ch2_1 = 3;
                                         break;
@@ -448,6 +501,8 @@ int main(){
 }
 
 
+// Checks
+
 bool checkInteiro(const string& s){
 
     for(auto y : s){
@@ -493,6 +548,29 @@ bool checkCidade(const string& s){
 
     return true;
 }
+
+bool checkPais(const string& s){
+
+    string pais = s;
+
+    transform(pais.begin(), pais.end(), pais.begin(), ::toupper);
+
+    unordered_map<string, unordered_set<string>> check = lfile.getPaisCidades();
+
+    if(check.find(pais) == check.end()){
+        clearScreen();
+        cout << "Pais nao existe!" << endl;
+        wait();
+        return false;
+    }
+
+    return true;
+}
+
+// Other Menu Functions
+
+
+// Prints de Menu Informacao
 
 void print_info_aeroporto(int id, const Aeroporto& aeroporto, string aerop){
 
@@ -586,7 +664,10 @@ void print_info_cidade(const string& cidade){
         }
 
         nome_pais = countries[pais_escolhido-1];
-        num_aeroportos = (int) lfile.getCidadesAeroportos().find(cidade)->second.size();
+
+        pair<string, string> pais_cidade = make_pair(nome_pais, cidade);
+
+        num_aeroportos = (int) lfile.getPaisCidadeAeroportos().find(pais_cidade)->second.size();
 
         clearScreen();
         cout << "===========================================================" << endl;
@@ -614,8 +695,7 @@ void print_info_cidade(const string& cidade){
             cout << endl;
         }
 
-        cout << "tururu" << endl;
-        wait();
+        if(opcao == "s" || opcao == "S") print_info_aeroporto_cidade_pais(cidade, nome_pais);
     }
     else {
         nome_pais = countries[0];
@@ -648,9 +728,133 @@ void print_info_cidade(const string& cidade){
             cout << endl;
         }
 
-        cout << "tururu" << endl;
+        if(opcao == "s" || opcao == "S") print_info_aeroporto_cidade(cidade);
 
-        wait();
     }
+
+}
+
+void print_info_aeroporto_cidade_pais(const string& cidade, const string& pais){
+
+    pair<string, string> pais_cidade = make_pair(pais, cidade);
+
+    vector<int> aeroportos = lfile.getPaisCidadeAeroportos().find(pais_cidade)->second;
+
+    clearScreen();
+    cout << "===========================================================" << endl;
+    cout << "|------------------------- INFO --------------------------|" << endl;
+    cout << "   Cidade escolhida: " + cidade + ", do pais : "+ pais + "                               " << endl;
+    cout << "===========================================================" << endl;
+    cout << "                                                       " << endl;
+    cout << "   Numero de aeroportos: " << aeroportos.size() << endl;
+    cout << "                                                       " << endl;
+
+    for(int i = 0; i < aeroportos.size(); i++){
+        cout << "   Aeroporto " << i+1 << ": " << lfile.getAeroportos().find(aeroportos[i])->second.getCodigo() << " - "  << lfile.getAeroportos().find(aeroportos[i])->second.getNome() << endl;
+    }
+
+    cout << "                                                           " << endl;
+    cout << "===========================================================" << endl;
+
+    wait();
+
+}
+
+void print_info_aeroporto_cidade(const string& cidade){
+
+    vector<int> aeroportos = lfile.getCidadesAeroportos().find(cidade)->second;
+
+    clearScreen();
+    cout << "===========================================================" << endl;
+    cout << "|------------------------- INFO --------------------------|" << endl;
+    cout << "   Cidade escolhida: " + cidade + "                                 " << endl;
+    cout << "===========================================================" << endl;
+    cout << "                                                       " << endl;
+    cout << "   Numero de aeroportos: " << aeroportos.size() << endl;
+    cout << "                                                       " << endl;
+
+    for(int i = 0; i < aeroportos.size(); i++){
+        cout << "   Aeroporto " << i+1 << ": " << lfile.getAeroportos().find(aeroportos[i])->second.getCodigo() << " - "  << lfile.getAeroportos().find(aeroportos[i])->second.getNome() << endl;
+    }
+
+    cout << "                                                           " << endl;
+    cout << "===========================================================" << endl;
+
+    wait();
+
+}
+
+void print_info_pais(const string& pais){
+
+    string opcao;
+
+    unordered_set<string> cidades = lfile.getPaisCidades().find(pais)->second;
+
+    vector<string> cidades_v(cidades.begin(), cidades.end());
+
+    vector<int> aeroportos;
+
+    vector<pair<string, string>> pais_cidade;
+
+    for(int i = 0; i < cidades_v.size(); i++){
+        pais_cidade.emplace_back(pais, cidades_v[i]);
+        cout<<pais_cidade[i].first<<" "<<pais_cidade[i].second<<endl;
+    }
+
+    for(const auto& i : pais_cidade){
+        vector<int> tmp = lfile.getPaisCidadeAeroportos().find(i)->second;
+        aeroportos.insert(aeroportos.end(), tmp.begin(), tmp.end());
+    }
+
+    clearScreen();
+    cout << "===========================================================" << endl;
+    cout << "|------------------------- INFO --------------------------|" << endl;
+    cout << "   Pais escolhido: " + pais + "                                 " << endl;
+    cout << "===========================================================" << endl;
+    cout << "                                                       " << endl;
+    cout << "   Numero de cidades: " << cidades.size() << endl;
+    cout << "   Numero de aeroportos: "  << aeroportos.size() << endl;
+    cout << "                                                           " << endl;
+    cout << "===========================================================" << endl;
+    cout << "|                                                         |" << endl;
+    cout << "|   Deseja listar os aeroportos? s/n                      |" << endl;
+    cout << "|                                                         |" << endl;
+    cout << "===========================================================" << endl;
+    cout << endl;
+
+
+    cout << "Opcao: ";
+    cin >> opcao;
+
+    while(opcao != "s" && opcao != "n" && opcao != "S" && opcao != "N"){
+        cout << endl;
+        cout << "Opcao invalida! Tente novamente: ";
+        cin >> opcao;
+        cout << endl;
+    }
+
+    if(opcao == "s" || opcao == "S") print_info_aeroporto_pais(pais, aeroportos);
+
+}
+
+void print_info_aeroporto_pais(const string& pais, vector<int> aeroportos){
+
+    clearScreen();
+    cout << "===========================================================" << endl;
+    cout << "|------------------------- INFO --------------------------|" << endl;
+    cout << "   Pais escolhido: " + pais + "                                 " << endl;
+    cout << "===========================================================" << endl;
+    cout << "                                                       " << endl;
+    cout << "   Numero de aeroportos: " << aeroportos.size() << endl;
+    cout << "                                                       " << endl;
+
+    for(int i = 0; i < aeroportos.size(); i++){
+        cout << "   Aeroporto " << i+1 << ": " << lfile.getAeroportos().find(aeroportos[i])->second.getCodigo() << " - "  << lfile.getAeroportos().find(aeroportos[i])->second.getNome() << endl;
+    }
+
+    cout << "                                                           " << endl;
+    cout << "===========================================================" << endl;
+
+    wait();
 
 }

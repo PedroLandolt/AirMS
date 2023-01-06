@@ -33,9 +33,21 @@ void Ler::ler_aeroportos() {
         aeroportos.insert({i, aeroporto});
         aeroportos_coords.insert({{latitude, longitude}, i});
 
-
         transform(cidade.begin(), cidade.end(), cidade.begin(), ::toupper);
         transform(pais.begin(), pais.end(), pais.begin(), ::toupper);
+
+        pair<string,string> pais_cidade = make_pair(pais,cidade);
+        id_pais_cidade.insert({i, pais_cidade});
+
+        if(pais_cidade_aeroportos.find(pais_cidade) == pais_cidade_aeroportos.end()){
+            vector<int> aerop_city;
+            aerop_city.push_back(i);
+            pais_cidade_aeroportos.insert({pais_cidade, aerop_city});
+        }
+        else{
+            pais_cidade_aeroportos.at(pais_cidade).push_back(i);
+        }
+
 
         if (cidades_aeroportos.find(cidade) == cidades_aeroportos.end()) {
             vector<int> aeroportos_cidade;
@@ -177,6 +189,16 @@ unordered_map<string, unordered_set<string>> Ler::getPaisCidades() const {
 unordered_map<string, unordered_set<int>> Ler::getAeroportosCompanhias() const {
     return aeroportos_companhias;
 }
+
+unordered_map<int, pair<string, string>> Ler::getIdPaisCidade() const {
+    return id_pais_cidade;
+}
+
+unordered_map<pair<string, string>, vector<int>, hashpairstring> Ler::getPaisCidadeAeroportos() const {
+    return pais_cidade_aeroportos;
+}
+
+
 
 
 
