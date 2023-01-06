@@ -123,6 +123,15 @@ void Ler::ler_voos(Graph &gh) {
             companhias_aeroportos.at(codigo_companhia).push_back(aeroportos_codigos.at(codigo_aeroporto_origem));
         }
 
+        if(aeroportos_companhias.find(codigo_aeroporto_origem) == aeroportos_companhias.end()){
+            unordered_set<int> companhias_aeroporto;
+            companhias_aeroporto.insert(companhias_codigos.at(codigo_companhia));
+            aeroportos_companhias.insert({codigo_aeroporto_origem, companhias_aeroporto});
+        }
+        else{
+            aeroportos_companhias.at(codigo_aeroporto_origem).insert(companhias_codigos.at(codigo_companhia));
+        }
+
 
     }
 }
@@ -163,6 +172,10 @@ unordered_map<string, vector<int>> Ler::getCompanhiasAeroportos() const {
 
 unordered_map<string, unordered_set<string>> Ler::getPaisCidades() const {
     return pais_cidades;
+}
+
+unordered_map<string, unordered_set<int>> Ler::getAeroportosCompanhias() const {
+    return aeroportos_companhias;
 }
 
 

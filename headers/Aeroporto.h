@@ -19,6 +19,8 @@ class Aeroporto {
 
 public:
 
+
+    Aeroporto();
     Aeroporto(string codigo, string nome, string cidade, string pais, double latitude, double longitude);
 
     string getCodigo() const;

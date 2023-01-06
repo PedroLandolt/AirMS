@@ -26,6 +26,7 @@ class Ler {
     unordered_map<string, int> aeroportos_codigos;
     unordered_map<int, Aeroporto> aeroportos;
     unordered_map<pair<double, double>, int, hashpair> aeroportos_coords;
+    unordered_map<string, unordered_set<int>> aeroportos_companhias;
 
     unordered_map<string, int> companhias_codigos;
     unordered_map<int, Companhia> companhias;
@@ -44,6 +45,7 @@ public:
     unordered_map<string, int> getAeroportosCodigos() const;
     unordered_map<int, Aeroporto> getAeroportos() const;
     unordered_map<pair<double, double>, int, hashpair> getAeroportosCoords() const;
+    unordered_map<string, unordered_set<int>> getAeroportosCompanhias() const;
 
     unordered_map<string, int> getCompanhiasCodigos() const;
     unordered_map<int, Companhia> getCompanhias() const;
