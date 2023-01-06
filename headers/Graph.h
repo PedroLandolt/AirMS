@@ -17,7 +17,7 @@ public:
     struct Edge {
         int dest;   // Destination node
         int weight; // An integer weight
-        set<string> airlines;
+        set<string> companhias;
     };
 
     struct Node {
@@ -31,8 +31,11 @@ public:
 
     Graph();
     explicit Graph(int nodes);
-    void addEdge(int src, int dest, string airline, int weight = 1);
+    void addEdge(int src, int dest, string companhia, int weight = 1);
 
+    //dfs e bfs
+    vector<int> bfs_me(int origem, int destino);
+    vector<int> bfs_me_companhias(int origem, int destino, const set<string>& companhias);
 };
 
 
