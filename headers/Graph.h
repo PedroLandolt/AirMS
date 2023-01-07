@@ -45,6 +45,10 @@ public:
     void dfs_scc2(int v, int index, stack<int> *node_stack, list<list<int>> *answer);
 
     void bfs(int a);
+
+    int diametro();
+
+    int bfs_max_distance(int a);
 };
 
 

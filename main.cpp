@@ -46,6 +46,22 @@ int main(){
     lfile.ler_companhias();
     lfile.ler_voos(g);
 
+    int diametro = g.diametro();
+
+    // vector<int> aeroportos com maximo de voos
+    vector<pair<int,int>> aeroportos_max_voos; //partida e chegada
+
+    for(int x = 1; x <= g.n; x++) {
+        g.bfs(x);
+        for (int i = 1; i <= g.n; i++) {
+            if (g.nodes[i].distance == diametro) {
+                pair<int,int> aeroporto = make_pair(x,i);
+                aeroportos_max_voos.push_back(aeroporto);
+            }
+        }
+    }
+
+
 
     int choice;
     string op_menu;
@@ -318,8 +334,7 @@ int main(){
                     cout << "||_______________________________________________________||" << endl;
                     cout << "||                                                       ||" << endl;
                     cout << "||   1 - Rota com menos escalas                          ||" << endl;
-                    cout << "||   2 - Rota com menos distancia percorrida             ||" << endl;
-                    cout << "||   3 - Destinos com menos de n voos                    ||" << endl;
+                    cout << "||   2 - Destinos com menos de n voos                    ||" << endl;
                     cout << "||                                                       ||" << endl;
                     cout << "||   0 - Sair                                            ||" << endl;
                     cout << "||                                                       ||" << endl;
@@ -328,7 +343,7 @@ int main(){
 
                     cin >> op_menu;
 
-                    while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 3){
+                    while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 2){
                         cout << endl;
                         cout << "Opcao invalida! Tente novamente: ";
                         cin >> op_menu;
@@ -636,46 +651,8 @@ int main(){
                             } while (ch2_1 != 0);
 
                             break;
-/*---------------------------------------------------------------------------------------------------------------------------------------*/
+
                         case 2:
-
-                            ch2 = 2;
-                            int ch2_2;
-
-                            do{
-                                clearScreen();
-                                cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-                                cout << "||---------------------- PESQUISA -----------------------||" << endl;
-                                cout << "|| Origem do Voo:                      (Menos Distancia) ||" << endl;
-                                cout << "||_______________________________________________________||" << endl;
-                                cout << "||                                                       ||" << endl;
-                                cout << "||   1 - Um Aeroporto                                    ||" << endl;
-                                cout << "||   2 - Uma Cidade                                      ||" << endl;
-                                cout << "||   3 - Um Pais                                         ||" << endl;
-                                cout << "||   4 - O Aeroporto mais proximo de umas coordenadas    ||" << endl;
-                                cout << "||   5 - Todos os pontos num raio de X Km                ||" << endl;
-                                cout << "||                                                       ||" << endl;
-                                cout << "||   0 - Sair                                            ||" << endl;
-                                cout << "||                                                       ||" << endl;
-                                cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-                                cout << endl;
-
-                                cin >> op_menu;
-
-                                while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 5){
-                                    cout << endl;
-                                    cout << "Opcao invalida! Tente novamente: ";
-                                    cin >> op_menu;
-                                    cout << endl;
-                                }
-
-                                ch2_2 = stoi(op_menu);
-
-                            } while (ch2_2 != 0);
-
-                            break;
-/*---------------------------------------------------------------------------------------------------------------------------------------*/
-                        case 3:
 
                             cout << "Aeroporto de partida: ";
                             cin >> aerop;
@@ -765,10 +742,9 @@ int main(){
                     cout << "||                                                       ||" << endl;
                     cout << "||   1 - Globais                                         ||" << endl;
                     cout << "||   2 - De um Pais                                      ||" << endl;
-                    cout << "||   3 - De uma Cidade                                   ||" << endl;
-                    cout << "||   4 - De um Aeroporto                                 ||" << endl;
-                    cout << "||   5 - Pontos de Articulacao                           ||" << endl;
-                    cout << "||   6 - Componentes Fortemente Conexos                  ||" << endl;
+                    cout << "||   3 - De um Aeroporto                                 ||" << endl;
+                    cout << "||   4 - Pontos de Articulacao                           ||" << endl;
+                    cout << "||   5 - Componentes Fortemente Conexos                  ||" << endl;
                     cout << "||                                                       ||" << endl;
                     cout << "||   0 - Sair                                            ||" << endl;
                     cout << "||                                                       ||" << endl;
@@ -777,7 +753,7 @@ int main(){
 
                     cin >> op_menu;
 
-                    while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 6){
+                    while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 5){
                         cout << endl;
                         cout << "Opcao invalida! Tente novamente: ";
                         cin >> op_menu;
@@ -792,6 +768,8 @@ int main(){
 
                             rnd = (rand() % (10 - 3 + 1) + 3);
 
+
+
                             clearScreen();
                             cout << "===========================================================" << endl;
                             cout << "|--------------------- ESTATISTICAS ----------------------|" << endl;
@@ -801,6 +779,7 @@ int main(){
                             cout << "    Paises com aeroportos: " << lfile.getPaisCidades().size() <<  "                             " << endl;
                             cout << "    Aeroportos totais: " << lfile.getAeroportos().size() << "                                " << endl;
                             cout << "    Companhias: " << lfile.getCompanhias().size() << "                                        " << endl;
+                            cout << "    Diametro da Rede: " << diametro << "                                                   " << endl;
                             cout << endl;
                             cout << "    Top " << rnd  <<" Aeroportos com mais companhias aereas:           " << endl;
                             for(auto& elem : lfile.getAeroportosCompanhias()) {
@@ -814,6 +793,36 @@ int main(){
                                      << lfile.getAeroportos().find(lfile.getAeroportosCodigos().find(aeroportos_companhias[i].second)->second)->second.getPais()
                                      << " - " << aeroportos_companhias[i].first << endl;
                             }
+                            cout << endl;
+                            if(aeroportos_max_voos.size() > 1 ){
+                                if(aeroportos_max_voos.size() > 5) rnd = (rand() % (5 - 2 + 1) + 2);
+                                else (rand() % (aeroportos_max_voos.size() - 2 + 1) + 2);
+                                cout << "    As " << rnd  <<" maiores viagens na rede global:           " << endl;
+                                for(int i = 0; i < rnd; i++){
+                                    cout << "      " << i+1
+                                    << " -> [" << lfile.getAeroportos().find(aeroportos_max_voos[i].first)->second.getCodigo()
+                                    << "] -> [" << lfile.getAeroportos().find(aeroportos_max_voos[i].second)->second.getCodigo() << "]" << endl
+                                            << "        " << lfile.getAeroportos().find(aeroportos_max_voos[i].first)->second.getNome() << ", "
+                                         << lfile.getAeroportos().find(aeroportos_max_voos[i].first)->second.getPais()
+                                         << " - "
+                                         << lfile.getAeroportos().find(aeroportos_max_voos[i].second)->second.getNome() << ", "
+                                         << lfile.getAeroportos().find(aeroportos_max_voos[i].second)->second.getPais();
+                                    cout << endl;
+                                }
+                            }
+                            else{
+                                cout << "    A maiore viagem na rede global:           " << endl;
+                                cout << "      " << 1
+                                << " -> [" << lfile.getAeroportos().find(aeroportos_max_voos[0].first)->second.getCodigo()
+                                << "] -> [" << lfile.getAeroportos().find(aeroportos_max_voos[0].second)->second.getCodigo() << "]" << endl
+                                     << "        " << lfile.getAeroportos().find(aeroportos_max_voos[0].first)->second.getNome() << ", "
+                                     << lfile.getAeroportos().find(aeroportos_max_voos[0].first)->second.getPais()
+                                     << " -> "
+                                     << lfile.getAeroportos().find(aeroportos_max_voos[0].second)->second.getNome() << ", "
+                                     << lfile.getAeroportos().find(aeroportos_max_voos[0].second)->second.getPais();
+                                cout << endl;
+                            }
+
                             cout << "|                                                         |" << endl;
                             cout << "===========================================================" << endl;
                             cout << endl;
@@ -922,55 +931,8 @@ int main(){
 
                             break;
 
+
                         case 3:
-
-                            cout << "Cidade: ";
-                            getline(cin >> ws, cidade);
-
-                            while(!checkCidade(cidade)){
-                                clearScreen();
-                                cout << endl;
-                                cout << "Cidade invalida! Tente novamente: ";
-                                getline(cin >> ws, cidade);
-                                cout << endl;
-                            }
-
-                            transform(cidade.begin(), cidade.end(), cidade.begin(), ::toupper);
-
-                            pais_cidade = checkPaisCidade(cidade);
-
-                            if(lfile.getCidadesAeroportos().find(cidade)->second.size() == 1){
-                                aerop =  lfile.getAeroportos().find(lfile.getCidadesAeroportos().find(cidade)->second[0])->second.getCodigo();
-                                menu_me_aerop_dest(aerop);
-                            }
-                            else{
-                                clearScreen();
-                                cout << "===========================================================" << endl;
-                                cout << "  Cidade com mais de um aeroporto. Escolha um: " << endl;
-                                for(auto i : pais_cidade){
-                                    cout << lfile.getAeroportos().find(i)->second.getCodigo() << " - " << lfile.getAeroportos().find(i)->second.getNome() << endl;
-                                }
-                                cout << "===========================================================" << endl;
-                                cout << endl;
-                                cout << "Aeroporto: ";
-                                cin >> aerop;
-
-                                while(!checkAeroporto(aerop)){
-                                    clearScreen();
-                                    cout << endl;
-                                    cout << "Aeroporto invalido! Tente novamente: ";
-                                    cin >> aerop;
-                                    cout << endl;
-                                }
-
-                                transform(aerop.begin(), aerop.end(), aerop.begin(), ::toupper);
-
-                                menu_me_aerop_dest(aerop);
-                            }
-
-                            break;
-
-                        case 4:
 
                             cout << "Aeroporto: ";
                             cin >> aerop;
@@ -1044,7 +1006,7 @@ int main(){
 
                             break;
 
-                        case 5:
+                        case 4:
 
                             ap = g.getArticulationPoints();
                             if(ap.empty()) {
@@ -1072,7 +1034,7 @@ int main(){
                             wait();
                             break;
 
-                        case 6:
+                        case 5:
 
                             for(auto& node : g.nodes) {
                                 node.visited = false;
