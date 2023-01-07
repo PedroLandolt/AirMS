@@ -144,6 +144,7 @@ void Ler::ler_voos(Graph &gh) {
             aeroportos_companhias.at(codigo_aeroporto_origem).insert(companhias_codigos.at(codigo_companhia));
         }
 
+        chegada_partida_companhia.insert({make_pair(codigo_aeroporto_origem, codigo_aeroporto_destino), codigo_companhia});
 
     }
 }
@@ -196,6 +197,10 @@ unordered_map<int, pair<string, string>> Ler::getIdPaisCidade() const {
 
 unordered_map<pair<string, string>, vector<int>, hashpairstring> Ler::getPaisCidadeAeroportos() const {
     return pais_cidade_aeroportos;
+}
+
+unordered_map<pair<string, string>, string, hashpairstring> Ler::getChegadaPartidaCompanhia() const {
+    return chegada_partida_companhia;
 }
 
 
