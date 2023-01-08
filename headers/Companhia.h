@@ -11,47 +11,60 @@ using namespace std;
 
 class Companhia {
 
-    string codigo; /** String com o código da companhia*/
-    string nome; /** String com o nome da companhia*/
-    string sigla; /** String com a sigla da companhia*/
-    string pais; /** String com o país de origem da companhia*/
+    /** String com o código da companhia*/
+    string codigo;
+
+    /** String com o nome da companhia*/
+    string nome;
+
+    /** String com a sigla da companhia*/
+    string sigla;
+
+    /** String com o país de origem da companhia*/
+    string pais;
 
 public:
 
-    Companhia(string codigo, string nome, string sigla, string pais); /** Constructor
+    /** Constructor
  * @param codigo String com o código da companhia
  * @param nome String com o nome da companhia
  * @param sigla String com a sigla da companhia
  * @param pais String com o país de origem da companhia
  * @brief Complexidade O(1)
  */
+    Companhia(string codigo, string nome, string sigla, string pais);
 
-    string getCodigo() const; /** Getter
+    /** Getter
  * @return String com o código da companhia
  * @brief Complexidade O(1)
  */
+    string getCodigo() const;
 
-    string getNome() const; /** Getter
+    /** Getter
  * @return String com o nome da companhia
  * @brief Complexidade O(1)
  */
+    string getNome() const;
 
-    string getSigla() const; /** Getter
+    /** Getter
  * @return String com a sigla da companhia
  * @brief Complexidade O(1)
  */
+    string getSigla() const;
 
-    string getPais() const; /** Getter
+    /** Getter
  * @return String com o país de origem da companhia
  * @brief Complexidade O(1)
  */
+    string getPais() const;
 
-    bool operator<(const Companhia &arl) const; /** Operator Overload para comparar objetos do tipo Companhia
+    /** Operator Overload para comparar objetos do tipo Companhia
  * @param arl Companhia
  * @return True se o código da companhia for menor que o código da companhia passada por parâmetro
  * @return False caso contrário
  * @brief Complexidade O(1)
  */
+    bool operator<(const Companhia &arl) const;
 
 };
 

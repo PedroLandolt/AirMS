@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['g_0',['g',['../main_8cpp.html#a700f6bbf8aedc0336a7accff8410c0df',1,'main.cpp']]]
+  ['n_0',['n',['../class_graph.html#a81a76a428e630453ef019a15b9092967',1,'Graph']]],
+  ['nodes_1',['nodes',['../class_graph.html#a71b5e16eb9e0670fea3ecee3526abb41',1,'Graph']]]
 ];

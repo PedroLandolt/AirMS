@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "AED_Projeto_2::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-AED_Projeto_2-Debug-180f8ab0452b5764bd88.json",
+					"jsonFile" : "target-AED_Projeto_2-Debug-80641141cda29a305ce1.json",
 					"name" : "AED_Projeto_2",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/pland/OneDrive/Desktop/FEUP/2Ano/AED/AED_Projeto_2/cmake-build-debug",
-		"source" : "C:/Users/pland/OneDrive/Desktop/FEUP/2Ano/AED/AED_Projeto_2"
+		"build" : "C:/Users/Utilizador/CLionProjects/AED_Projeto_2/cmake-build-debug",
+		"source" : "C:/Users/Utilizador/CLionProjects/AED_Projeto_2"
 	},
 	"version" : 
 	{
