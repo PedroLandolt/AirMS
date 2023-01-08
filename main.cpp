@@ -1,3 +1,9 @@
+/*! \file */
+
+/**
+ * @brief Ficheiro onde estão implementados os diferentes menus com as funcionalidades pedidas no enunciado do projeto
+ */
+
 #include <bits/stdc++.h>
 
 #include "../headers/Ler.h"
@@ -118,6 +124,9 @@ int main(){
     int max = 0;
 
     do {
+        /**
+         * Menu Principal
+         */
         clearScreen();
         cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
         cout << "||------------------------ MENU -------------------------||" << endl;
@@ -133,7 +142,7 @@ int main(){
         cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
         cout << endl;
 
-
+        /** Leitura do input do utilizador **/
 
         cin >> op_menu;
 
@@ -147,11 +156,14 @@ int main(){
         choice = stoi(op_menu);
         cout << endl;
 
+        /** Estrutura utillizada para realizar as varias funçoes disponibilizadas no menu. */
+
         switch (choice) {
 
             case 0:
 
                 choice = 0;
+                /** Opção para sair do programa. */
                 break;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,8 +176,12 @@ int main(){
 
                 int ch1;
                 choice = 1;
+                /** Opção para aceder ao menu de informação. */
 
                 do{
+                    /**
+                     * Menu Informacao
+                     */
                     clearScreen();
                     cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
                     cout << "||------------------------ INFO -------------------------||" << endl;
@@ -182,7 +198,11 @@ int main(){
                     cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
                     cout << endl;
 
+                    /** Leitura do input do utilizador **/
+
                     cin >> op_menu;
+
+                    /** Verifica se o input é um inteiro e se está dentro do intervalo de opções disponiveis. */
 
                     while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 4){
                         cout << endl;
@@ -198,13 +218,18 @@ int main(){
                         case 0:
 
                             ch1 = 0;
+                            /** Opção para sair do menu de informação. */
                             break;
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
                         case 1:
 
+                            /** Opção para aceder ao menu de informação de um aeroporto. */
+
                             cout << "Aeroporto: ";
                             cin >> aerop;
+                            /** Leitura do input do utilizador */
 
+                            /** Verifica se o aeroporto existe. */
                             while(!checkAeroporto(aerop)){
                                 clearScreen();
                                 cout << endl;
@@ -218,6 +243,7 @@ int main(){
                             id = lfile.getAeroportosCodigos()[aerop];
                             aeroporto = lfile.getAeroportos().at(id);
 
+                            /** Imprime as informações do aeroporto. */
                             print_info_aeroporto(id, aeroporto, aerop);
 
                             ch1 = 1;
@@ -227,6 +253,9 @@ int main(){
 
                             cout << "Cidade: ";
                             getline(cin >> ws, cidade);
+                            /** Leitura do input do utilizador */
+
+                            /** Verifica se a cidade existe. */
 
                             while(!checkCidade(cidade)){
                                 clearScreen();
@@ -238,6 +267,8 @@ int main(){
 
                             transform(cidade.begin(), cidade.end(), cidade.begin(), ::toupper);
 
+
+                            /** Imprime as informações da cidade. */
                             print_info_cidade(cidade);
 
                             ch1 = 2;
@@ -247,7 +278,9 @@ int main(){
 
                             cout << "Pais: ";
                             getline(cin >> ws, pais);
+                            /** Leitura do input do utilizador */
 
+                            /** Verifica se o pais existe. */
                             while(!checkPais(pais)){
                                 clearScreen();
                                 cout << endl;
@@ -258,6 +291,7 @@ int main(){
 
                             transform(pais.begin(), pais.end(), pais.begin(), ::toupper);
 
+                            /** Imprime as informações do pais. */
                             print_info_pais(pais);
 
                             ch1 = 3;
@@ -272,6 +306,10 @@ int main(){
                             cout << "  - Longitude: ";
                             cin >> lon;
 
+                            /** Leitura do input do utilizador */
+
+
+                            /** Verifica se as coordenadas estão dentro do intervalo de valores possiveis. */
                             while(!checkCoordenadas(lat, lon)){
                                 clearScreen();
                                 cout << endl;
@@ -286,6 +324,7 @@ int main(){
                             cout << endl;
                             cout << "  - Raio a pesquisar (Km): ";
                             cin >> raio;
+                            /** Leitura do input do utilizador */
 
                             raio_s = to_string(raio);
 
@@ -296,9 +335,11 @@ int main(){
                                 cout << "  - Raio a pesquisar (Km): ";
                                 cin >> raio_s;
                             }
+                            /** Verifica se o raio é válido. */
                             raio = stoi(raio_s);
 
                             print_info_aeroporto_num_raio_x(lat, lon, raio);
+                            /** Imprime as informações dos aeroportos dentro do raio. */
 
                             ch1 = 4;
                             break;
@@ -309,6 +350,7 @@ int main(){
                             cout << "Opcao invalida! Tente novamente." << endl;
                             wait();
                             break;
+                            /** Opção default caso o input do utilizador não seja válido. */
                     }
 
                 } while (ch1 != 0);
@@ -323,10 +365,12 @@ int main(){
 
             case 2:
 
+                /** Opção para aceder ao menu de pesquisa de rotas. */
                 int ch2;
                 choice = 2;
 
                 do{
+                    /** Menu de pesquisa de rotas. */
                     clearScreen();
                     cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
                     cout << "||---------------------- PESQUISA -----------------------||" << endl;
@@ -342,6 +386,7 @@ int main(){
                     cout << endl;
 
                     cin >> op_menu;
+                    /** Leitura do input do utilizador */
 
                     while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 2){
                         cout << endl;
@@ -349,22 +394,26 @@ int main(){
                         cin >> op_menu;
                         cout << endl;
                     }
+                    /** Verifica se o input do utilizador é válido. */
 
                     ch2 = stoi(op_menu);
 
                     switch (ch2) {
 
                         case 0:
-
+                            /** Opção para sair do menu de pesquisa de rotas. */
                             ch2 = 0;
                             break;
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
                         case 1:
+                            /** Opção para pesquisar a rota com menos escalas. */
 
                             ch2 = 1;
                             int ch2_1;
 
                             do{
+
+                                /** Menu de pesquisa de rotas com menos escalas. */
                                 clearScreen();
                                 cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << endl;
                                 cout << "||---------------------- PESQUISA -----------------------||" << endl;
@@ -390,21 +439,25 @@ int main(){
                                     cin >> op_menu;
                                     cout << endl;
                                 }
+                                /** Verifica se o input do utilizador é válido. */
 
                                 ch2_1 = stoi(op_menu);
 
                                 switch (ch2_1) {
 
                                     case 0:
+                                        /** Opção para sair do menu de pesquisa de rotas com menos escalas. */
 
                                         ch2_1 = 0;
                                         break;
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
                                     case 1:
+                                        /** Opção para pesquisar a rota com menos escalas a partir de um aeroporto. */
 
                                         cout << "Aeroporto: ";
                                         cin >> aerop;
+                                        /** Leitura do input do utilizador */
 
                                         while(!checkAeroporto(aerop)){
                                             clearScreen();
@@ -413,19 +466,23 @@ int main(){
                                             cin >> aerop;
                                             cout << endl;
                                         }
+                                        /** Verifica se o aeroporto é válido. */
 
                                         transform(aerop.begin(), aerop.end(), aerop.begin(), ::toupper);
 
                                         menu_me_aerop_dest(aerop);
+
 
                                         ch2_1 = 1;
                                         break;
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
                                     case 2:
+                                        /** Opção para pesquisar a rota com menos escalas a partir de uma cidade. */
 
                                         cout << "Cidade: ";
                                         getline(cin >> ws, cidade);
+                                        /** Leitura do input do utilizador */
 
                                         while(!checkCidade(cidade)){
                                             clearScreen();
@@ -434,26 +491,29 @@ int main(){
                                             getline(cin >> ws, cidade);
                                             cout << endl;
                                         }
+                                        /** Verifica se a cidade é válida. */
 
                                         transform(cidade.begin(), cidade.end(), cidade.begin(), ::toupper);
 
                                         pais_cidade = checkPaisCidade(cidade);
+                                        /** Verifica se a cidade pertence a algum país. */
 
                                         if(lfile.getCidadesAeroportos().find(cidade)->second.size() == 1){
                                             aerop =  lfile.getAeroportos().find(lfile.getCidadesAeroportos().find(cidade)->second[0])->second.getCodigo();
                                             menu_me_aerop_dest(aerop);
-                                        }
+                                        } /** Verifica se a cidade tem apenas um aeroporto */
                                         else{
                                             clearScreen();
                                             cout << "===========================================================" << endl;
                                             cout << "  Cidade com mais de um aeroporto. Escolha um: " << endl;
                                             for(auto i : pais_cidade){
                                                 cout << lfile.getAeroportos().find(i)->second.getCodigo() << " - " << lfile.getAeroportos().find(i)->second.getNome() << endl;
-                                            }
+                                            } /** Imprime todos os aeroportos da cidade */
                                             cout << "===========================================================" << endl;
                                             cout << endl;
                                             cout << "Aeroporto: ";
                                             cin >> aerop;
+                                            /** Leitura do input do utilizador */
 
                                             while(!checkAeroporto(aerop)){
                                                 clearScreen();
@@ -462,10 +522,12 @@ int main(){
                                                 cin >> aerop;
                                                 cout << endl;
                                             }
+                                            /** Verifica se o aeroporto é válido. */
 
                                             transform(aerop.begin(), aerop.end(), aerop.begin(), ::toupper);
 
                                             menu_me_aerop_dest(aerop);
+
                                         }
 
                                         ch2_1 = 2;
@@ -475,6 +537,7 @@ int main(){
 
                                         cout << "Pais: ";
                                         getline(cin >> ws, pais);
+                                        /** Leitura do input do utilizador */
 
                                         while(!checkPais(pais)){
                                             clearScreen();
@@ -483,26 +546,28 @@ int main(){
                                             getline(cin >> ws, pais);
                                             cout << endl;
                                         }
+                                        /** Verifica se o país é válido. */
 
                                         transform(pais.begin(), pais.end(), pais.begin(), ::toupper);
 
                                         aeroportos_pais_v = aeroportos_pais(pais);
 
-                                        if(aeroportos_pais_v.size() == 1){
+                                        if(aeroportos_pais_v.size() == 1) {
                                             aerop = to_string(aeroportos_pais_v[0]);
                                             menu_me_aerop_dest(aerop);
-                                        }
+                                        } /** Verifica se o país tem apenas um aeroporto */
                                         else{
                                             clearScreen();
                                             cout << "===========================================================" << endl;
                                             cout << "  Pais com mais de um aeroporto. Escolha um: " << endl;
                                             for(auto i : aeroportos_pais_v){
                                                 cout << lfile.getAeroportos().find(i)->second.getCodigo() << " - " << lfile.getAeroportos().find(i)->second.getNome() << endl;
-                                            }
+                                            } /** Imprime todos os aeroportos do país */
                                             cout << "===========================================================" << endl;
                                             cout << endl;
                                             cout << "Aeroporto: ";
                                             cin >> aerop;
+                                            /** Leitura do input do utilizador */
 
                                             while(!checkAeroporto(aerop)){
                                                 clearScreen();
@@ -510,7 +575,7 @@ int main(){
                                                 cout << "Aeroporto invalido! Tente novamente: ";
                                                 cin >> aerop;
                                                 cout << endl;
-                                            }
+                                            } /** Verifica se o aeroporto é válido. */
 
                                             transform(aerop.begin(), aerop.end(), aerop.begin(), ::toupper);
 
@@ -528,6 +593,7 @@ int main(){
                                         cout << endl;
                                         cout << "  - Longitude: ";
                                         cin >> lon;
+                                        /** Leitura do input do utilizador */
 
                                         while(!checkCoordenadas(lat, lon)){
                                             clearScreen();
@@ -538,7 +604,7 @@ int main(){
                                             cout << endl;
                                             cout << "  - Longitude: ";
                                             cin >> lon;
-                                        }
+                                        } /** Verifica se as coordenadas são válidas. */
 
                                         aerop = aeroporto_mais_proximo(lat, lon);
 
@@ -569,6 +635,7 @@ int main(){
                                         cout << endl;
                                         cout << "  - Longitude: ";
                                         cin >> lon;
+                                        /** Leitura do input do utilizador */
 
                                         while(!checkCoordenadas(lat, lon)){
                                             clearScreen();
@@ -579,7 +646,7 @@ int main(){
                                             cout << endl;
                                             cout << "  - Longitude: ";
                                             cin >> lon;
-                                        }
+                                        } /** Verifica se as coordenadas são válidas. */
 
                                         cout << endl;
                                         cout << "  - Raio a pesquisar (Km): ";
@@ -593,7 +660,7 @@ int main(){
                                             cout << "Raio invalido! Tente novamente: " << endl;
                                             cout << "  - Raio a pesquisar (Km): ";
                                             cin >> raio_s;
-                                        }
+                                        } /** Verifica se o raio é válido. */
                                         raio = stoi(raio_s);
 
                                         aeroportos_raio = aeroportos_num_raio_x(lat, lon, raio);
@@ -606,7 +673,7 @@ int main(){
                                             wait();
                                             ch2_1 = 5;
                                             break;
-                                        }
+                                        } /** Verifica se existem aeroportos no raio indicado. */
 
                                         clearScreen();
                                         cout << "===========================================================" << endl;
@@ -615,7 +682,7 @@ int main(){
                                         for(auto i : aeroportos_raio){
                                             cout << "  [" << lfile.getAeroportos().find(i)->second.getCodigo()
                                                  << "] - " << lfile.getAeroportos().find(i)->second.getNome() << endl;
-                                        }
+                                        } /** Imprime os aeroportos no raio indicado. */
                                         cout << endl;
                                         cout << "===========================================================" << endl;
                                         cout << "|  Escollha um aeroporto:                                 |" << endl;
@@ -623,6 +690,7 @@ int main(){
                                         cout << endl;
                                         cout << "Aeroporto: ";
                                         cin >> aerop;
+                                        /** Leitura do input do utilizador */
 
                                         while(!checkAeroporto(aerop)){
                                             clearScreen();
@@ -630,7 +698,7 @@ int main(){
                                             cout << "Aeroporto invalido! Tente novamente: ";
                                             cin >> aerop;
                                             cout << endl;
-                                        }
+                                        } /** Verifica se o aeroporto é válido. */
 
                                         transform(aerop.begin(), aerop.end(), aerop.begin(), ::toupper);
 
@@ -645,6 +713,7 @@ int main(){
                                         cout << "Opcao invalida! Tente novamente." << endl;
                                         wait();
                                         break;
+                                        /** Caso o utilizador insira uma opção inválida. */
 
                                 }
 
@@ -653,10 +722,12 @@ int main(){
                             break;
 
                         case 2:
+                            /** opção destinos com menos de n voos */
 
                             cout << "Aeroporto de partida: ";
                             cin >> aerop;
                             cout << endl;
+                            /** Leitura do input do utilizador */
 
                             while(!checkAeroporto(aerop)){
                                 clearScreen();
@@ -665,11 +736,13 @@ int main(){
                                 cin >> aerop;
                                 cout << endl;
                             }
+                            /** Verifica se o aeroporto é válido. */
 
                             transform(aerop.begin(), aerop.end(), aerop.begin(), ::toupper);
 
                             cout << "Numero de voos: ";
                             cin >> n_voos;
+                            /** Leitura do input do utilizador */
 
                             while(!checkInteiro(n_voos)){
                                 clearScreen();
@@ -677,7 +750,7 @@ int main(){
                                 cout << "Numero de voos invalido! Tente novamente: ";
                                 cin >> n_voos;
                                 cout << endl;
-                            }
+                            } /** Verifica se o número de voos é válido. */
 
                             g.bfs((int) lfile.getAeroportosCodigos().find(aerop)->second);
 
@@ -716,6 +789,7 @@ int main(){
                             cout << "Opcao invalida!" << endl;
                             wait();
                             break;
+                            /** Caso o utilizador insira uma opção inválida. */
                     }
 
                 } while (ch2 != 0);
@@ -729,6 +803,7 @@ int main(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             case 3:
+                /** Abre o menu de estatisticas */
 
                 choice = 3;
                 int ch3;
@@ -752,19 +827,21 @@ int main(){
                     cout << endl;
 
                     cin >> op_menu;
+                    /** Leitura do input do utilizador */
 
                     while(!checkInteiro(op_menu) || stoi(op_menu) < 0 || stoi(op_menu) > 5){
                         cout << endl;
                         cout << "Opcao invalida! Tente novamente: ";
                         cin >> op_menu;
                         cout << endl;
-                    }
+                    } /** Verifica se a opção é válida. */
 
                     ch3= stoi(op_menu);
 
                     switch (ch3) {
 
                         case 1:
+                            /** opção estatisticas globais */
 
                             rnd = (rand() % (10 - 3 + 1) + 3);
 
@@ -833,6 +910,7 @@ int main(){
                             break;
 
                         case 2:
+                            /** opção estatisticas por pais */
 
                             cout << "Pais: ";
                             getline(cin >> ws, pais);
@@ -933,6 +1011,7 @@ int main(){
 
 
                         case 3:
+                            /** opção estatisticas por aeroporto */
 
                             cout << "Aeroporto: ";
                             cin >> aerop;
@@ -1007,6 +1086,7 @@ int main(){
                             break;
 
                         case 4:
+                            /** opção estatisticas pontos de articulação */
 
                             ap = g.getArticulationPoints();
                             if(ap.empty()) {
@@ -1035,6 +1115,7 @@ int main(){
                             break;
 
                         case 5:
+                            /** opção estatisticas componentes fortemente conexos */
 
                             for(auto& node : g.nodes) {
                                 node.visited = false;
