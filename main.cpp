@@ -929,7 +929,7 @@ int main(){
 
 
                             if(aeroportos_pais_v.size() < 5){
-                                rnd = (rand() % (aeroportos_pais_v.size() - 1 + 1)+1);
+                                rnd = (int)(rand() % (aeroportos_pais_v.size() - 1 + 1)+1);
                             }
                             else{
                                 rnd = (rand() % (5 - 3 + 1) + 3);
@@ -944,13 +944,6 @@ int main(){
                                 if(batata == pais){
                                     contador_companhias_pais++;
                                 }
-                            }
-
-
-
-                            for(auto asd : aeroportos_pais_v){
-                                aero_codigo_temp.push_back(lfile.getAeroportos().find(asd)->second.getCodigo());
-                                cout << lfile.getAeroportos().find(asd)->second.getCodigo() << endl;
                             }
 
                             cont_partida_voos = 0;
@@ -1141,10 +1134,10 @@ int main(){
 
                             for(auto& comp : sccs) {
                                 if(comp.size() < min) {
-                                    min = comp.size();
+                                    min = (int)comp.size();
                                 }
                                 else if (comp.size() > max) {
-                                    max = comp.size();
+                                    max = (int)comp.size();
                                 }
                             }
 
@@ -1698,6 +1691,7 @@ vector<int> aeroportos_pais(const string& pais){
 
     vector<pair<string, string>> pais_cidade;
 
+    pais_cidade.reserve(cidades_v.size());
     for(auto & i : cidades_v){
         pais_cidade.emplace_back(pais, i);
     }
@@ -1931,9 +1925,9 @@ void print_info_pais(const string& pais){
 
     vector<pair<string, string>> pais_cidade;
 
-    for(int i = 0; i < cidades_v.size(); i++){
-        pais_cidade.emplace_back(pais, cidades_v[i]);
-        cout<<pais_cidade[i].first<<" "<<pais_cidade[i].second<<endl;
+    pais_cidade.reserve(cidades_v.size());
+    for(auto & i : cidades_v){
+        pais_cidade.emplace_back(pais, i);
     }
 
     for(const auto& i : pais_cidade){
@@ -2217,4 +2211,3 @@ void wait() {
     cout << endl;
     do{ c = getchar(); }while ((c != '\n') && (c != EOF));
 }
-
